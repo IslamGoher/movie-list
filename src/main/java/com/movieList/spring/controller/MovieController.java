@@ -2,9 +2,8 @@ package com.movieList.spring.controller;
 
 import com.movieList.spring.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -24,6 +23,14 @@ public class MovieController {
   @GetMapping(path = "/movies")
   public Object getMovies(HttpServletResponse res) {
     return movieService.getMovies(res);
+  }
+
+  // @route   GET '/api/v1/movies/{id}'
+  // @desc    get one movie by id
+  // @access  public
+  @GetMapping(path = "/movies/{id}")
+  public Object getOneMovie(HttpServletResponse res, @PathVariable String id) {
+    return movieService.getOneMovie(res, id);
   }
 
 }
