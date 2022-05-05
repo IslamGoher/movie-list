@@ -1,10 +1,10 @@
 package com.movieList.spring.errorHandling;
 
-public class ErrorResponse {
+public class ApiResponse {
   private int statusCode;
   private String message;
 
-  public ErrorResponse(int statusCode, String message) {
+  public ApiResponse(int statusCode, String message) {
     this.message = message;
     this.statusCode = statusCode;
   }
