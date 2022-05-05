@@ -1,6 +1,7 @@
 package com.movieList.spring.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Table(name = "movie")
 @Entity(name = "Movie")
@@ -12,15 +13,21 @@ public class Movie {
   private Long id;
 
   @Column(name = "title")
+  @Size(min = 1, message = "title is required")
+  @NotNull(message = "title is required")
   private String title;
 
   @Column(name = "description")
+  @Size(max = 1000, message = "description must be lower than 1000 character")
   private String description;
 
   @Column(name = "year")
+  @Min(value = 1888, message = "year must be greater than or equal 1888")
+  @NotNull(message = "year is required")
   private int year;
 
   @Column(name = "is_watched")
+  @NotNull
   private boolean isWatched;
 
   public Movie() {}
