@@ -70,4 +70,20 @@ public class MovieService {
     res.setStatus(201);
     return hashMap;
   }
+
+  // @route   DELETE '/api/v1/movies/{id}
+  // @desc    delete one movie by id
+  // @access  public
+  public ApiResponse deleteMovie(HttpServletResponse res, String id) {
+    Long longId = Long.parseLong(id);
+    Long movieId = movieRepository.deleteMovie(longId);
+
+    if(movieId == null) {
+      res.setStatus(404);
+      return new ApiResponse(404, "there's no such movie found with given id");
+    }
+
+    res.setStatus(200);
+    return new ApiResponse(200, "movie with id '" + id + "' deleted successfully");
+  }
 }
