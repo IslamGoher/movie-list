@@ -55,7 +55,8 @@ public class MovieController {
   public ApiResponse deleteMovie(
     HttpServletResponse res,
     @PathVariable(name = "id", required = true)
-    String id
+    @Positive(message = "id must be an integer greater than 0")
+      String id
   ) {
     return movieService.deleteMovie(res, id);
   }
