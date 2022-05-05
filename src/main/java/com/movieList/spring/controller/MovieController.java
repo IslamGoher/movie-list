@@ -1,5 +1,6 @@
 package com.movieList.spring.controller;
 
+import com.movieList.spring.errorHandling.ApiResponse;
 import com.movieList.spring.models.Movie;
 import com.movieList.spring.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class MovieController {
   public Object getOneMovie(
     HttpServletResponse res,
     @PathVariable(value = "id", required = true)
-      @Positive(message = "id must be an integer greater than 0") String id
+    @Positive(message = "id must be an integer greater than 0")
+      String id
   ) {
 
     return movieService.getOneMovie(res, id);
@@ -44,6 +46,18 @@ public class MovieController {
   @PostMapping(path = "/movies")
   public Object addMovie(@RequestBody @Valid Movie movie, HttpServletResponse res) {
     return movieService.addMovie(movie, res);
+  }
+
+  // @route   DELETE '/api/v1/movies/{id}
+  // @desc    delete one movie by id
+  // @access  public
+  @DeleteMapping(path = "/movies/{id}")
+  public ApiResponse deleteMovie(
+    HttpServletResponse res,
+    @PathVariable(name = "id", required = true)
+    String id
+  ) {
+    return movieService.deleteMovie(res, id);
   }
 
 }
