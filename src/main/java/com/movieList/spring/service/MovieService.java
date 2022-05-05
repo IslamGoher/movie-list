@@ -59,7 +59,7 @@ public class MovieService {
       movie.getTitle(),
       movie.getDescription(),
       movie.getYear(),
-      movie.isWatched()
+      movie.getIsWatched()
     );
 
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -86,4 +86,34 @@ public class MovieService {
     res.setStatus(200);
     return new ApiResponse(200, "movie with id '" + id + "' deleted successfully");
   }
+
+  // @route   PUT '/api/v1/movies/{id}
+  // @desc    update one movie by id
+  // @access  public
+  public ApiResponse updateMovie(
+    HttpServletResponse res,
+    String id,
+    Movie movie
+  ) {
+
+    Long longId = Long.parseLong(id);
+
+    // update movie
+    Long movieId = movieRepository.updateMovie(
+      movie.getTitle(),
+      movie.getDescription(),
+      movie.getYear(),
+      movie.getIsWatched(),
+      longId
+    );
+
+    if(movieId == null) {
+      res.setStatus(404);
+      return new ApiResponse(404, "there's no such movie found with given id");
+    }
+
+    res.setStatus(200);
+    return new ApiResponse(200, "movie updated successfully");
+  }
+
 }

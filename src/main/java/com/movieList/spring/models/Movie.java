@@ -27,7 +27,7 @@ public class Movie {
   private int year;
 
   @Column(name = "is_watched")
-  @NotNull
+  @NotNull(message = "isWatched is required")
   private boolean isWatched;
 
   public Movie() {}
@@ -79,12 +79,12 @@ public class Movie {
     this.year = year;
   }
 
-  public boolean isWatched() {
+  public boolean getIsWatched() {
     return isWatched;
   }
 
-  public void setWatched(boolean watched) {
-    isWatched = watched;
+  public void setIsWatched(boolean isWatched) {
+    this.isWatched = isWatched;
   }
 
   @Override

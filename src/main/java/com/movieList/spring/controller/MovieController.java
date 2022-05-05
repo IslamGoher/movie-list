@@ -61,4 +61,18 @@ public class MovieController {
     return movieService.deleteMovie(res, id);
   }
 
+  // @route   PUT '/api/v1/movies/{id}
+  // @desc    update one movie by id
+  // @access  public
+  @PutMapping(path = "/movies/{id}")
+  public ApiResponse updateMovie(
+    HttpServletResponse res,
+    @PathVariable(name = "id", required = true)
+    @Positive(message = "id must be an integer greater than 0")
+      String id,
+    @RequestBody @Valid Movie movie
+  ) {
+    return movieService.updateMovie(res, id, movie);
+  }
+
 }
