@@ -28,4 +28,24 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
   // @route   DELETE '/api/v1/movies/{id}
   @Query(value = "DELETE FROM movie WHERE id = ?1 RETURNING id;", nativeQuery = true)
   Long deleteMovie(Long id);
+
+  // @route   PUT '/api/v1/movies/{id}
+  @Query(value =
+    "UPDATE movie " +
+    "SET " +
+      "title = ?1, " +
+      "description = ?2, " +
+      "year = ?3, " +
+      "is_watched = ?4 " +
+    "WHERE id = ?5 " +
+    "RETURNING id;",
+    nativeQuery = true)
+  Long updateMovie(
+    String title,
+    String description,
+    int year,
+    boolean isWatched,
+    Long id
+  );
+
 }
