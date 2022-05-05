@@ -1,6 +1,6 @@
 package com.movieList.spring.errorHandling;
 
-public class ErrorResponse{
+public class ErrorResponse {
   private int statusCode;
   private String message;
 

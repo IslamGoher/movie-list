@@ -11,6 +11,10 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
   // @route   GET '/api/v1/movies'
-  @Query(value = "select * from movie;", nativeQuery = true)
+  @Query(value = "SELECT * FROM movie;", nativeQuery = true)
   List<Movie> getAllMovies();
+
+  // @route   GET '/api/v1/movies/{id}'
+  @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
+  Movie getOneMovie(Long id);
 }
