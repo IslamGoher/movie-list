@@ -1,5 +1,6 @@
 package com.movieList.spring.controller;
 
+import com.movieList.spring.models.Movie;
 import com.movieList.spring.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +35,14 @@ public class MovieController {
   ) {
 
     return movieService.getOneMovie(res, id);
+  }
+
+  // @route   POST '/api/v1/movies'
+  // @desc    create new movie
+  // @access  public
+  @PostMapping(path = "/movies")
+  public Object addMovie(@RequestBody Movie movie, HttpServletResponse res) {
+    return movieService.addMovie(movie, res);
   }
 
 }

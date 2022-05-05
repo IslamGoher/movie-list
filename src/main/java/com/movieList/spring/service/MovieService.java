@@ -1,12 +1,12 @@
 package com.movieList.spring.service;
 
-import com.movieList.spring.errorHandling.ErrorResponse;
+import com.movieList.spring.errorHandling.ApiResponse;
 import com.movieList.spring.models.Movie;
 import com.movieList.spring.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -25,7 +25,7 @@ public class MovieService {
     // check if movies exists
     if(movies.isEmpty()) {
       res.setStatus(404);
-      return new ErrorResponse(404, "there's no such movies found");
+      return new ApiResponse(404, "there's no such movies found");
     }
 
     res.setStatus(200);
@@ -42,12 +42,32 @@ public class MovieService {
 
     if(movie == null) {
       res.setStatus(404);
-      return new ErrorResponse(
+      return new ApiResponse(
         404,
         "there's no such movie found with given id");
     }
 
     res.setStatus(200);
     return movie;
+  }
+
+  // @route   POST '/api/v1/movies'
+  // @desc    create new movie
+  // @access  public
+  public Object addMovie(Movie movie, HttpServletResponse res) {
+    Long movieId = movieRepository.createMovie(
+      movie.getTitle(),
+      movie.getDescription(),
+      movie.getYear(),
+      movie.isWatched()
+    );
+
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("statusCode", 201);
+    hashMap.put("message", "movie created successfully.");
+    hashMap.put("movieId", movieId);
+
+    res.setStatus(201);
+    return hashMap;
   }
 }

@@ -20,7 +20,7 @@ public class ErrorHandler implements ErrorController {
 
   @ExceptionHandler(ValidationException.class)
   @RequestMapping(path = "/error")
-  public ErrorResponse handleError(HttpServletResponse res, WebRequest webRequest) {
+  public ApiResponse handleError(HttpServletResponse res, WebRequest webRequest) {
 
     Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(
       webRequest,
@@ -38,6 +38,6 @@ public class ErrorHandler implements ErrorController {
       message = "Content not found";
 
     res.setStatus(statusCode);
-    return new ErrorResponse(statusCode, message);
+    return new ApiResponse(statusCode, message);
   }
 }
